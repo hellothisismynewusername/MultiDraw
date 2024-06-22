@@ -1,0 +1,42 @@
+# This file will automatically update with entries for new content after a build and reload.
+
+Items: {
+	Pen: {
+		DisplayName: Pen
+		Tooltip:
+			'''
+			Template of an item
+			Replacing this tooltip is duty 
+			It's snowing on Mt.Fuji
+			'''
+	}
+}
+
+Projectiles.Canvas.DisplayName: Canvas
+
+Keybinds: {
+	"Re-display (use if drawings disappear suddenly).DisplayName": Re-display (use if drawings disappear suddenly)
+	"Redisplay (if stuff disappears suddenly).DisplayName": Redisplay (if stuff disappears suddenly)
+	"Increase brush size.DisplayName": Increase brush size
+	"Decrease brush size.DisplayName": Decrease brush size
+}
+
+Configs: {
+	ConfigClientSide: {
+		DisplayName: Config Client Side
+
+		BrushImage: {
+			Label: Brush Image
+			Tooltip: ""
+		}
+	}
+
+	ConfigServerSide: {
+		DisplayName: Config Server Side
+
+		Smoothing: {
+			Label: Smoothing
+			Tooltip: ""
+		}
+	}
+}

@@ -1,0 +1,3 @@
+displayName = Multiplayer Drawing
+author = pk
+version = 0.1
