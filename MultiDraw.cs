@@ -35,7 +35,7 @@ namespace MultiDraw
 						List<Image> buf = new List<Image>();
 						for (int i = 0; i < len; i++) {
 							Vector2 pos = reader.ReadVector2();
-							float scale = (float) reader.ReadDouble();
+							float scale = reader.ReadSingle();
 							int image = reader.ReadInt32();
 							buf.Add(new Image(pos, scale, image));
 						}
@@ -43,7 +43,7 @@ namespace MultiDraw
 							ModContent.GetInstance<MDModSystem>().images.Add(buf[i]);
 
 							pack.WriteVector2(buf[i].pos);
-							pack.Write((double) buf[i].scale);
+							pack.Write(buf[i].scale);
 							pack.Write((Int32) buf[i].image);
 						}
 
@@ -76,7 +76,7 @@ namespace MultiDraw
 						syncPack.Write((Int32) ModContent.GetInstance<MDModSystem>().images.Count);
 						for (int i = 0; i < ModContent.GetInstance<MDModSystem>().images.Count; i++) {
 							syncPack.WriteVector2(ModContent.GetInstance<MDModSystem>().images[i].pos);
-							syncPack.Write((double) ModContent.GetInstance<MDModSystem>().images[i].scale);
+							syncPack.Write(ModContent.GetInstance<MDModSystem>().images[i].scale);
 							syncPack.Write((Int32) ModContent.GetInstance<MDModSystem>().images[i].image);
 						}
 
@@ -99,7 +99,7 @@ namespace MultiDraw
 						List<Image> buf = new List<Image>();
 						for (int i = 0; i < len; i++) {
 							Vector2 pos = reader.ReadVector2();
-							float scale = (float) reader.ReadDouble();
+							float scale = reader.ReadSingle();
 							int image = reader.ReadInt32();
 							buf.Add(new Image(pos, scale, image));
 						}
@@ -140,7 +140,7 @@ namespace MultiDraw
 						List<Image> syncBuf = new List<Image>();
 						for (int i = 0; i < syncLen; i++) {
 							Vector2 pos = reader.ReadVector2();
-							float scale = (float) reader.ReadDouble();
+							float scale = reader.ReadSingle();
 							int image = reader.ReadInt32();
 							syncBuf.Add(new Image(pos, scale, image));
 						}

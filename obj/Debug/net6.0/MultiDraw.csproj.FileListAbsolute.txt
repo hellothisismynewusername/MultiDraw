@@ -1,0 +1,5 @@
+C:\Users\emahs\Documents\My Games\Terraria\tModLoader\ModSources\MultiDraw\obj\Debug\net6.0\MultiDraw.csproj.AssemblyReference.cache
+C:\Users\emahs\Documents\My Games\Terraria\tModLoader\ModSources\MultiDraw\obj\Debug\net6.0\MultiDraw.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\emahs\Documents\My Games\Terraria\tModLoader\ModSources\MultiDraw\obj\Debug\net6.0\MultiDraw.AssemblyInfoInputs.cache
+C:\Users\emahs\Documents\My Games\Terraria\tModLoader\ModSources\MultiDraw\obj\Debug\net6.0\MultiDraw.AssemblyInfo.cs
+C:\Users\emahs\Documents\My Games\Terraria\tModLoader\ModSources\MultiDraw\obj\Debug\net6.0\MultiDraw.csproj.CoreCompileInputs.cache

@@ -15,6 +15,7 @@ using Terraria.DataStructures;
 using Steamworks;
 using MultiDraw.Content.Items;
 using Terraria.GameInput;
+using Terraria.ModLoader.IO;
 
 namespace MultiDraw
 {
@@ -110,12 +111,37 @@ namespace MultiDraw
                     pack.Write((byte) 0);                       //byte
                     pack.Write((Int32) Player.whoAmI);       //int (owner)
                     pack.Write((Int32) buf.Count);              //int (len)
+                    bool earlyEnd = false;
                     for (int i = 0; i < buf.Count; i++) {
                         pack.WriteVector2(buf[i].pos);
-                        pack.Write((double) buf[i].scale);
+                        pack.Write(buf[i].scale);
                         pack.Write((Int32) buf[i].image);
+
+                        if (pack.BaseStream.Length > 65500) {
+                            Main.NewText("Cutting off early due to approaching maximum size limit. Please let go of the mouse button earlier");
+                            ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
+                            earlyPack.Write((byte) 0);
+                            earlyPack.Write((Int32) Player.whoAmI);
+                            earlyPack.Write((Int32) i);
+                            for (int j = 0; j < i; j++) {
+                                earlyPack.WriteVector2(buf[j].pos);
+                                earlyPack.Write(buf[j].scale);
+                                earlyPack.Write((Int32) buf[j].image);
+                            }
+                            earlyPack.Send();
+
+                            for (int j = i; j < buf.Count; j++) {
+                                for (int k = 0; k < images.Count; k++) {
+                                    if (images[k].pos.Equals(buf[j].pos)) {
+                                        images.RemoveAt(k);
+                                    }
+                                }
+                            }
+                            earlyEnd = true;
+                            break;
+                        }
                     }
-                    pack.Send();
+                    if (!earlyEnd) pack.Send();
 
                     buf.Clear();
                 }
