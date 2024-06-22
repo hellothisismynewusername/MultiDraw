@@ -65,6 +65,18 @@ namespace MultiDraw.Content.Projectiles
                             texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/white");
                             rect = new Rectangle(0, 0, 8, 8);
                             break;
+                        case -2:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/red");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
+                        case -3:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/green");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
+                        case -4:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/blue");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
                         default:
                             Main.GetItemDrawFrame(Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].image, out texture, out rect);
                             break;

@@ -41,11 +41,13 @@ namespace MultiDraw
                 prevMouse = Main.MouseWorld;
                 smoothing = ModContent.GetInstance<ConfigServerSide>().Smoothing;
 
-                //request to sync images
-                ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
-                pack.Write((byte) 2);
-                pack.Write((Int32) Player.whoAmI);
-                pack.Send();
+                if (Main.netMode != NetmodeID.SinglePlayer) {
+                    //request to sync images
+                    ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
+                    pack.Write((byte) 2);
+                    pack.Write((Int32) Player.whoAmI);
+                    pack.Send();
+                }
             }
         }
 

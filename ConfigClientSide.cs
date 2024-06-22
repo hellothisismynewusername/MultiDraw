@@ -18,7 +18,7 @@ namespace MultiDraw {
         // [Tooltip("$Some.Key")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option. Like with Label, a specific key can be provided.
 
         [DefaultValue(-1)]
-        [Range(-1, 5455)]
+        [Range(-4, 5455)]
         public int BrushImage;
     }
 }
