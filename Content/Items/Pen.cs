@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 namespace MultiDraw.Content.Items
 { 
@@ -25,9 +26,19 @@ namespace MultiDraw.Content.Items
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.useTurn = true;
+			Item.scale = 0.75f;
 		}
 
-		public override void AddRecipes()
+        public override void UpdateInventory(Player player) {
+			if (ModContent.GetInstance<ConfigServerSide>().PenUseAnimation) {
+				Item.useStyle = ItemUseStyleID.Swing;
+			} else {
+				Item.useStyle = 0;
+			}
+            base.UpdateInventory(player);
+        }
+
+        public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.DirtBlock, 1);

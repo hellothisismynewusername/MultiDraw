@@ -21,20 +21,18 @@ namespace MultiDraw
 {
     public class MDPlayer : ModPlayer {
 
-        int myCanvas;
         public List<Image> images;
         public List<Image> buf;
         public List<int> eraseBuf;
         bool oldMouseState;
         bool rightOldMouseState;
-        public bool reset;
         float scale;
         Vector2 prevMouse;
         int smoothing;
 
         public override void OnEnterWorld() {
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
-                myCanvas = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
                 images = new List<Image>();
                 buf = new List<Image>();
                 eraseBuf = new List<int>();
@@ -53,22 +51,14 @@ namespace MultiDraw
         }
 
         public override void OnRespawn() {
-            reset = true;
+            re(false, true); //doesn't work?? still gotta press redisp when you die far away
         }
 
         public override void PostUpdate() {
-/*
-            if (Main.netMode == NetmodeID.Server) {
-                Console.WriteLine($"{ModContent.GetInstance<MDModSystem>().images.Count} is server's images");
-            }
-*/
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
 
                 smoothing = ModContent.GetInstance<ConfigServerSide>().Smoothing;
 
-                if (!Main.projectile[myCanvas].active) {
-                    myCanvas = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
-                }
 
                 if (Player.HeldItem.type == ModContent.ItemType<Pen>() && Main.mouseLeft) {
                     //images.Add(new Image(new Vector2((prevMouse.X + Main.MouseWorld.X) / 2f, (prevMouse.Y + Main.MouseWorld.Y) / 2f), scale, -2));
@@ -90,6 +80,10 @@ namespace MultiDraw
                     if (Main.netMode != NetmodeID.SinglePlayer) {
                         buf.Add(new Image(Main.MouseWorld, scale, ModContent.GetInstance<ConfigClientSide>().BrushImage));
                     }
+
+                    if (Main.netMode != NetmodeID.SinglePlayer && buf.Count * 16 > 65480) {
+                        Main.mouseLeft = false;
+                    }
                 }
                 if (Player.HeldItem.type == ModContent.ItemType<Pen>() && Main.mouseRight) {
                     for (int i = 0; i < images.Count; i++) {
@@ -100,6 +94,10 @@ namespace MultiDraw
                                 eraseBuf.Add(i);
                             }
                         }
+
+                        if (Main.netMode != NetmodeID.SinglePlayer && eraseBuf.Count * 4 > 65480) {
+                            break;
+                        }
                     }
                 }
 
@@ -109,7 +107,7 @@ namespace MultiDraw
 
                     ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
                     pack.Write((byte) 0);                       //byte
-                    pack.Write((Int32) Player.whoAmI);       //int (owner)
+                    pack.Write((Int32) Player.whoAmI);          //int (owner)
                     pack.Write((Int32) buf.Count);              //int (len)
                     bool earlyEnd = false;
                     for (int i = 0; i < buf.Count; i++) {
@@ -119,7 +117,9 @@ namespace MultiDraw
 
                         //overflow protection
                         if (pack.BaseStream.Length > 65500) {
-                            Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier");
+                            if (ModContent.GetInstance<ConfigClientSide>().PacketSizeWarningMessage) {
+                                Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier, or decrease smoothing in server-side config.");
+                            }
                             ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
                             earlyPack.Write((byte) 0);
                             earlyPack.Write((Int32) Player.whoAmI);
@@ -139,6 +139,15 @@ namespace MultiDraw
                                 }
                             }
                             earlyEnd = true;
+
+                            if (Main.netMode != NetmodeID.SinglePlayer) {
+                                //request to sync images
+                                ModPacket p = ModContent.GetInstance<MultiDraw>().GetPacket();
+                                p.Write((byte) 2);
+                                p.Write((Int32) Player.whoAmI);
+                                p.Send();
+                            }
+
                             break;
                         }
                     }
@@ -152,15 +161,17 @@ namespace MultiDraw
 
                     ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
                     pack.Write((byte) 1);                       //byte
-                    pack.Write((Int32) Player.whoAmI);       //int (owner)
-                    pack.Write((Int32) eraseBuf.Count);              //int (len)
+                    pack.Write((Int32) Player.whoAmI);          //int (owner)
+                    pack.Write((Int32) eraseBuf.Count);         //int (len)
                     bool earlyEnd = false;
                     for (int i = 0; i < eraseBuf.Count; i++) {
                         pack.Write((Int32) eraseBuf[i]);
 
                         //overflow protection
                         if (pack.BaseStream.Length > 65500) {
-                            Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier");
+                            if (ModContent.GetInstance<ConfigClientSide>().PacketSizeWarningMessage) {
+                                Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier, or decrease smoothing in server-side config.");
+                            }
                             ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
                             earlyPack.Write((byte) 1);
                             earlyPack.Write((Int32) Player.whoAmI);
@@ -171,6 +182,15 @@ namespace MultiDraw
                             earlyPack.Send();
                             eraseBuf.Clear();
                             earlyEnd = true;
+
+                            if (Main.netMode != NetmodeID.SinglePlayer) {
+                                //request to sync images
+                                ModPacket p = ModContent.GetInstance<MultiDraw>().GetPacket();
+                                p.Write((byte) 2);
+                                p.Write((Int32) Player.whoAmI);
+                                p.Send();
+                            }
+
                             break;
                         }
                     }
@@ -187,18 +207,31 @@ namespace MultiDraw
             }
         }
 
+        void re(bool sync, bool disp) {
+            if (sync) {
+                if (Main.netMode != NetmodeID.SinglePlayer) {
+                    ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
+                    pack.Write((byte) 2);
+                    pack.Write((Int32) Player.whoAmI);
+                    pack.Send();
+                }
+            }
+            if (disp) {
+                if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
+                    for (int i = 0; i < Main.maxProjectiles; i++) {
+                        if (Main.projectile[i].active && Main.projectile[i].ModProjectile != null && Main.projectile[i].ModProjectile.Type == ModContent.ProjectileType<Canvas>() && Main.projectile[i].owner == Player.whoAmI) {
+                            Main.projectile[i].Kill();
+                        }
+                    }
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
+                }
+            }
+        }
+
         public override void ProcessTriggers(TriggersSet triggersSet) {
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
                 if (MDSystem.ReDisplay.JustPressed) {
-                    if (Main.netMode != NetmodeID.SinglePlayer) {
-                        //request to sync images
-                        ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
-                        pack.Write((byte) 2);
-                        pack.Write((Int32) Player.whoAmI);
-                        pack.Send();
-                    }
-                    myCanvas = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
-                    reset = true;
+                    re(true, true);
                 }
                 if (MDSystem.IncreaseBrushSize.JustPressed) {
                     if (scale < 10f) {

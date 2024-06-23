@@ -31,18 +31,11 @@ namespace MultiDraw.Content.Projectiles
             Projectile.friendly = false;
             Projectile.hostile = false;
             //Projectile.alpha = 255;
-
-            
         }
 
         public override void PostDraw(Color lightColor) {
             Projectile.position = Main.player[Projectile.owner].position;
             if (Main.myPlayer == Projectile.owner) {
-
-                if (Main.player[Projectile.owner].GetModPlayer<MDPlayer>().reset) {
-                    Main.player[Projectile.owner].GetModPlayer<MDPlayer>().reset = false;
-                    Projectile.Kill();
-                }
 /*
                 Vector2 pos = Main.player[Projectile.owner].position;
                 Texture2D itemTexture;
@@ -52,6 +45,8 @@ namespace MultiDraw.Content.Projectiles
                 */
                 
                 //Main.NewText($"{Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images.Count} is what actual?");
+
+                Projectile.timeLeft = 100000;
 
                 for (int i = 0; i < Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images.Count; i++) {
                     Texture2D texture;
@@ -75,6 +70,22 @@ namespace MultiDraw.Content.Projectiles
                             break;
                         case -4:
                             texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/blue");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
+                        case -5:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/yellow");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
+                        case -6:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/orange");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
+                        case -7:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/purple");
+                            rect = new Rectangle(0, 0, 8, 8);
+                            break;
+                        case -8:
+                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/pink");
                             rect = new Rectangle(0, 0, 8, 8);
                             break;
                         default:

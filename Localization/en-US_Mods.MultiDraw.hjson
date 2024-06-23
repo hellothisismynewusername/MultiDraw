@@ -3,12 +3,7 @@
 Items: {
 	Pen: {
 		DisplayName: Pen
-		Tooltip:
-			'''
-			Template of an item
-			Replacing this tooltip is duty 
-			It's snowing on Mt.Fuji
-			'''
+		Tooltip: Hold left-click to draw. Hold right-click to erase.
 	}
 }
 
@@ -28,6 +23,11 @@ Configs: {
 
 		BrushImage: {
 			Label: Brush Image
+			Tooltip: You can set this to a valid Terraria item ID.
+		}
+
+		PacketSizeWarningMessage: {
+			Label: Packet Size Warning Message
 			Tooltip: ""
 		}
 	}
@@ -37,7 +37,12 @@ Configs: {
 
 		Smoothing: {
 			Label: Smoothing
-			Tooltip: ""
+			Tooltip: Turn this down in case of lag.
+		}
+
+		PenUseAnimation: {
+			Tooltip: Whether to show a swing animation when drawing.
+			Label: Pen Use Animation
 		}
 	}
 }

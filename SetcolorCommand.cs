@@ -17,7 +17,7 @@ namespace MultiDraw
 
 		// A short description of this command
 		public override string Description
-			=> "Changes brush color to a color or an item sprite. Input either 'black', 'white', 'red', 'green', 'blue', or a valid item ID";
+			=> "Changes brush color to a color or an item sprite. Input either 'black', 'white', 'red', 'green', 'blue', 'yellow', 'orange', 'purple', 'magenta', 'pink', or a valid item ID";
 
 		public override void Action(CommandCaller caller, string input, string[] args) {
 			if (args.Length != 1) {
@@ -45,9 +45,29 @@ namespace MultiDraw
 					ModContent.GetInstance<ConfigClientSide>().BrushImage = -4;
 					break;
 
+				case "yellow":
+					ModContent.GetInstance<ConfigClientSide>().BrushImage = -5;
+					break;
+
+				case "orange":
+					ModContent.GetInstance<ConfigClientSide>().BrushImage = -6;
+					break;
+
+				case "purple":
+					ModContent.GetInstance<ConfigClientSide>().BrushImage = -7;
+					break;
+
+				case "magenta":
+					ModContent.GetInstance<ConfigClientSide>().BrushImage = -7;
+					break;
+
+				case "pink":
+					ModContent.GetInstance<ConfigClientSide>().BrushImage = -8;
+					break;
+
 				default:
 					int num = -100;
-					if (Int32.TryParse(args[0], out num)) {
+					if (Int32.TryParse(args[0], out num) && num > 0 && num <= 5455) {
 						ModContent.GetInstance<ConfigClientSide>().BrushImage = num;
 						return;
 					} else {

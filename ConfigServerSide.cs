@@ -21,6 +21,7 @@ namespace MultiDraw {
         [Range(0, 20)]
         public int Smoothing;
 
-        
+        [DefaultValue(true)]
+        public bool PenUseAnimation;
     }
 }

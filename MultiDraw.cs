@@ -74,7 +74,7 @@ namespace MultiDraw
 					case (byte) 2: //recieving request to sync images
 
 						int requester = reader.ReadInt32();
-						Console.WriteLine($"MultiDraw: recieved requestr to sync. requeter is {requester}");
+						Console.WriteLine($"MultiDraw: recieved request to sync. requester is {requester}");
 
 						int totalBytesPayload = 16 * ModContent.GetInstance<MDModSystem>().images.Count;
 						int numPackets = (int) Math.Ceiling((float) totalBytesPayload / 65535f);

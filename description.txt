@@ -1,1 +1,15 @@
-Modify this file with a description of your mod.
+This mod lets you and others draw together in multiplayer, so you can annotate stuff, plan buildings, leave messages behind without needing a sign, clutter up the screen, or draw whatever else a typical gamer would together. You can write anywhere on the screen, and the drawings are saved as long as the server's open. However, they don't save in the world file, but I have considered this for a future update if I learn how to.
+You can:
+ - Draw in 9 different colors
+ - Change brush size
+ - Draw using any Terraria item sprite (like using stamps)
+ - Erase (your own or other's)
+ - Craft the Pen item to draw, using 1 Dirt Block
+
+You may notice that in multiplayer, if you draw or erase for too long without releasing the mouse button, your drawing or erasing may be interupted. This is intentional.
+If the drawings disappear, you can press the Re-sync and Re-display buttons to re-sync drawings (if in multiplayer) and re-display them.
+
+To change color or set your brush to a Terraria item sprite, type in the chat "/setcolor [color]" where [color] is either 'black', 'white', 'red', 'green', 'blue', or a valid item ID.
+
+Please set your keybinds for Increase brush size, Decrease brush size, and Re-sync and Re-display.
+You can configure the smoothness in server settings.
