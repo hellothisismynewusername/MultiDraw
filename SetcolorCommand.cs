@@ -17,11 +17,11 @@ namespace MultiDraw
 
 		// A short description of this command
 		public override string Description
-			=> "'black', 'white', 'red', 'green', 'blue'";
+			=> "Changes brush color to a color or an item sprite. Input either 'black', 'white', 'red', 'green', 'blue', or a valid item ID";
 
 		public override void Action(CommandCaller caller, string input, string[] args) {
 			if (args.Length != 1) {
-				Main.NewText("Incorrect amount of arguments supplied to 'setcolor'. Input either 'black', 'white', 'red', 'green', or 'blue'");
+				Main.NewText("Incorrect amount of arguments supplied to 'setcolor'. Input only 'black', 'white', 'red', 'green', 'blue', or a valid item ID");
 				return;
 			}
 			switch (args[0]) {
@@ -51,14 +51,9 @@ namespace MultiDraw
 						ModContent.GetInstance<ConfigClientSide>().BrushImage = num;
 						return;
 					} else {
-						Main.NewText("Argument is unparsable");
+						Main.NewText("Argument is unparsable. Input either 'black', 'white', 'red', 'green', 'blue', or a valid item ID");
 						return;
 					}
-					if (num == -100) {
-						Main.NewText("Error occured");
-						return;
-					}
-					break;
 			}
 			
 		}

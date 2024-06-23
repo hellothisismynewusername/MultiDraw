@@ -19,6 +19,7 @@ Keybinds: {
 	"Redisplay (if stuff disappears suddenly).DisplayName": Redisplay (if stuff disappears suddenly)
 	"Increase brush size.DisplayName": Increase brush size
 	"Decrease brush size.DisplayName": Decrease brush size
+	"Re-sync and Re-display.DisplayName": Re-sync and  Re-display
 }
 
 Configs: {

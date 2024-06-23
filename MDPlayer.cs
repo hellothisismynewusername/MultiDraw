@@ -117,8 +117,9 @@ namespace MultiDraw
                         pack.Write(buf[i].scale);
                         pack.Write((Int32) buf[i].image);
 
+                        //overflow protection
                         if (pack.BaseStream.Length > 65500) {
-                            Main.NewText("Cutting off early due to approaching maximum size limit. Please let go of the mouse button earlier");
+                            Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier");
                             ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
                             earlyPack.Write((byte) 0);
                             earlyPack.Write((Int32) Player.whoAmI);
@@ -153,10 +154,27 @@ namespace MultiDraw
                     pack.Write((byte) 1);                       //byte
                     pack.Write((Int32) Player.whoAmI);       //int (owner)
                     pack.Write((Int32) eraseBuf.Count);              //int (len)
+                    bool earlyEnd = false;
                     for (int i = 0; i < eraseBuf.Count; i++) {
                         pack.Write((Int32) eraseBuf[i]);
+
+                        //overflow protection
+                        if (pack.BaseStream.Length > 65500) {
+                            Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier");
+                            ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
+                            earlyPack.Write((byte) 1);
+                            earlyPack.Write((Int32) Player.whoAmI);
+                            earlyPack.Write((Int32) i);
+                            for (int j = 0; j < i; j++) {
+                                earlyPack.Write((Int32) eraseBuf[j]);
+                            }
+                            earlyPack.Send();
+                            eraseBuf.Clear();
+                            earlyEnd = true;
+                            break;
+                        }
                     }
-                    pack.Send();
+                    if (!earlyEnd) pack.Send();
 
                     eraseBuf.Clear();
                 }
@@ -172,6 +190,13 @@ namespace MultiDraw
         public override void ProcessTriggers(TriggersSet triggersSet) {
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
                 if (MDSystem.ReDisplay.JustPressed) {
+                    if (Main.netMode != NetmodeID.SinglePlayer) {
+                        //request to sync images
+                        ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
+                        pack.Write((byte) 2);
+                        pack.Write((Int32) Player.whoAmI);
+                        pack.Send();
+                    }
                     myCanvas = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
                     reset = true;
                 }

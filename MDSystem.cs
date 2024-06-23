@@ -13,7 +13,7 @@ namespace MultiDraw {
         public static ModKeybind DecreaseBrushSize { get; private set; }
 
         public override void Load() {
-            ReDisplay = KeybindLoader.RegisterKeybind(Mod, "Redisplay (if stuff disappears suddenly)", "L");
+            ReDisplay = KeybindLoader.RegisterKeybind(Mod, "Re-sync and Re-display", "L");
             IncreaseBrushSize = KeybindLoader.RegisterKeybind(Mod, "Increase brush size", "Up");
             DecreaseBrushSize = KeybindLoader.RegisterKeybind(Mod, "Decrease brush size", "Down");
         }

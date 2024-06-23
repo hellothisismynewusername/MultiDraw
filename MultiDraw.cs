@@ -12,6 +12,7 @@ using Terraria;
 using Terraria.ModLoader;
 using MultiDraw.Content.Projectiles;
 using Humanizer;
+using Terraria.GameContent;
 
 namespace MultiDraw
 {
@@ -72,101 +73,74 @@ namespace MultiDraw
 
 					case (byte) 2: //recieving request to sync images
 
-						List<Byte> total = new List<Byte>();
-						total.Add((byte) 3);
 						int requester = reader.ReadInt32();
-						for (int i = 0; i < 4; i++) {
-							total.Add(BitConverter.GetBytes(requester)[i]);
-						}
-						for (int i = 0; i < ModContent.GetInstance<MDModSystem>().images.Count; i++) {
-							for (int j = 0; j < 4; j++) {
-								total.Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[i].pos.X)[j]);
-							}
-							for (int j = 0; j < 4; j++) {
-								total.Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[i].pos.Y)[j]);
-							}
-							for (int j = 0; j < 4; j++) {
-								total.Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[i].scale)[j]);
-							}
-							for (int j = 0; j < 4; j++) {
-								total.Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[i].image)[j]);
-							}
-							for (int j = 0; j < 4; j++) {
-								total.Add(BitConverter.GetBytes(-251662081)[j]);
-							}
-						}
+						Console.WriteLine($"MultiDraw: recieved requestr to sync. requeter is {requester}");
 
-						Console.WriteLine($"Sync packet size before splitting is {total.Count}");
+						int totalBytesPayload = 16 * ModContent.GetInstance<MDModSystem>().images.Count;
+						int numPackets = (int) Math.Ceiling((float) totalBytesPayload / 65535f);
+						Console.WriteLine($"MultiDraw: totalBytesPayload {totalBytesPayload}, numPackets {numPackets}. the amount of images is {ModContent.GetInstance<MDModSystem>().images.Count}");
+						List<List<byte>> packets = new List<List<byte>>();
+						int offset = 0;
+						for (int i = 0; i < numPackets; i++) {
+							packets.Add(new List<byte>());
 
-						int count = 0;
-						byte thirdAgo = 0;
-						byte secondAgo = 0;
-						byte firstAgo = 0;
-						List<List<byte>> lists = new List<List<byte>>();
-						int thing = 0;
-						for (int i = 0; i < total.Count; i++) {
-							if (i > 1) {
-								firstAgo = total[i - 1];
+							//header
+							if (i == 0) {
+								packets[i].Add((byte) 3);
+							} else {
+								packets[i].Add((byte) 4);
 							}
-							if (i > 2) {
-								secondAgo = total[i - 2];
+							for (int a = 0; a < BitConverter.GetBytes(requester).Count(); a++) {
+								packets[i].Add(BitConverter.GetBytes(requester)[a]);
 							}
-							if (i > 3) {
-								thirdAgo = total[i - 3];
+							int lenPayloadPerPacket = ModContent.GetInstance<MDModSystem>().images.Count / numPackets;
+							Console.WriteLine($"MultiDraw: the lenPayloadPerPacket is {lenPayloadPerPacket}");
+							for (int a = 0; a < BitConverter.GetBytes(lenPayloadPerPacket).Count(); a++) {
+								packets[i].Add(BitConverter.GetBytes(lenPayloadPerPacket)[a]);
 							}
-							if (count > 65450 && total[i] == 240 && firstAgo == 255 && secondAgo == 240 && thirdAgo == 255) {
-								//change sentinel to section end
-								total[i - 2] = 255;
-								total.Insert(i + 1, (byte) 4);
-								for (int h = 1; h < 4 + 1; h++) {
-									total.Insert(i + 1 + h, BitConverter.GetBytes(requester)[h - 1]);
+
+							Console.WriteLine($"MultiDraw: from {offset} to {lenPayloadPerPacket * (i + 1)}");
+							//payload
+							for (int a = offset; a < lenPayloadPerPacket * (i + 1); a++) {
+								//if (lenPayloadPerPacket * (i + 1) < ModContent.GetInstance<MDModSystem>().images.Count) { //the dividing can cause some off-by-one errors
+									for (int b = 0; b < 4; b++) {
+										packets[i].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].pos.X)[b]);
+									}
+									for (int b = 0; b < 4; b++) {
+										packets[i].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].pos.Y)[b]);
+									}
+									for (int b = 0; b < 4; b++) {
+										packets[i].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].scale)[b]);
+									}
+									for (int b = 0; b < 4; b++) {
+										packets[i].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].image)[b]);
+									}
+								//}
+							}
+							offset = lenPayloadPerPacket * (i + 1);
+						}
+						//Console.WriteLine("saving time");
+						//saving packets to a file to view them and making the real packets and sending them
+						//string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+						for (int i = 0; i < numPackets; i++) {
+							//StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "aaaaSyncPacket" + i.ToString() + ".txt"), false);
+
+							ModPacket actualPacket = ModContent.GetInstance<MultiDraw>().GetPacket();
+
+							for (int j = 0; j < packets[i].Count; j++) {
+								/*if (j % 4 == 1) { //there's one byte at the beginning offsetting everything
+									outputFile.WriteLine("");
 								}
-								count = 0;
-								Console.WriteLine($"splitting FUCK {total[i - 3]} FUCK {total[i - 2]} FUCK {total[i - 1]} FUCK {total[i]}");
+								outputFile.WriteLine(packets[i][j]);*/
 
-								lists.Add(new List<byte>());
-								for (int a = thing; a < i + 1; a++) {
-									lists[lists.Count - 1].Add(total[a]);
-								}
-								thing = i;
+								actualPacket.Write((byte) packets[i][j]);
 							}
-							count++;
-							if (total[i] == 240 && firstAgo == 255 && secondAgo == 240 && thirdAgo == 255) {
-								for (int a = 0; a < 4; a++) {
-									total.RemoveAt(i - 3);
-								}
-							}
-						}
-						Console.WriteLine($"there is {lists.Count} lists");
-						for (int a = 0; a < lists.Count; a++) {
-							Console.WriteLine($"list {a} has {lists[a].Count} items");
-						}
-						Console.WriteLine($"Sync total size after splitting is {total.Count}, but isn't this useless now?");
-						int iterations = lists.Count;
+							//outputFile.Close();
 
-						for (int i = 0; i < iterations; i++) {
-							ModPacket splitSyncPack = ModContent.GetInstance<MultiDraw>().GetPacket();
-							string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-							StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "aaaaPacket" + i.ToString() + ".txt"), false);
-							for (int j = 0; j < lists[i].Count; j++) {
-								outputFile.WriteLine(lists[i][j]);
-								splitSyncPack.Write(lists[i][j]);
-							}
-							splitSyncPack.Send();
+							actualPacket.Send();
 						}
 
-						/*ModPacket syncPack = ModContent.GetInstance<MultiDraw>().GetPacket();
-						syncPack.Write((byte) 3);
-						syncPack.Write(reader.ReadInt32());
-						syncPack.Write((Int32) ModContent.GetInstance<MDModSystem>().images.Count);
-						for (int i = 0; i < ModContent.GetInstance<MDModSystem>().images.Count; i++) {
-							syncPack.WriteVector2(ModContent.GetInstance<MDModSystem>().images[i].pos);
-							syncPack.Write(ModContent.GetInstance<MDModSystem>().images[i].scale);
-							syncPack.Write((Int32) ModContent.GetInstance<MDModSystem>().images[i].image);
-						}
-
-						syncPack.Send();*/
-
+						Console.WriteLine("MultiDraw: finished syncing");
 						break;
 
 					default:
@@ -219,82 +193,49 @@ namespace MultiDraw
 						break;
 
 					case (byte) 3: { //synchronize client
-						int playerToBeSynced = reader.ReadInt32();		//int (owner)
-						Main.NewText($"initial syncing packet. requester is {playerToBeSynced}");
-
-						List<Image> syncBuf = new List<Image>();
-						bool didNotMatch = true;
-						string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-						StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "aaaa.txt"), true);
-						while (didNotMatch) {
+						int playerToBeSynced = reader.ReadInt32();
+						//Main.NewText($"initial syncing packet. requester is {playerToBeSynced}");
+						
+						int length = reader.ReadInt32();
+						List<Image> buffer = new List<Image>();
+						for (int i = 0; i < length; i++) {
 							Vector2 pos = reader.ReadVector2();
 							float scale = reader.ReadSingle();
 							int image = reader.ReadInt32();
-							syncBuf.Add(new Image(pos, scale, image));
-							
-							int read = reader.ReadInt32();
-							outputFile.WriteLine($"a read session occured. the var read is {read}");
-							if (read == -251658241) {
-								didNotMatch = false;
-								outputFile.WriteLine($"YOOOOO MATCHED");
-							}
-							for (int a = 0; a < BitConverter.GetBytes(read).Count(); a++) {
-								outputFile.WriteLine(BitConverter.GetBytes(read)[a]);
-							}
-							reader.BaseStream.Seek(-4, SeekOrigin.Current);
-
-							outputFile.WriteLine("");
+							buffer.Add(new Image(pos, scale, image));
 						}
 
 						if (Main.myPlayer == playerToBeSynced) {
-							for (int i = 0; i < syncBuf.Count; i++) {
-								Main.player[Main.myPlayer].GetModPlayer<MDPlayer>().images.Clear();
-								Main.player[Main.myPlayer].GetModPlayer<MDPlayer>().images.Add(syncBuf[i]);
+							Main.player[Main.myPlayer].GetModPlayer<MDPlayer>().images.Clear();
+							for (int i = 0; i < buffer.Count; i++) {
+								Main.player[Main.myPlayer].GetModPlayer<MDPlayer>().images.Add(buffer[i]);
 							}
 						}
-						}
-						
+
 						break;
+						}
 
 					case (byte) 4: {
-						int requester = reader.ReadInt32();
-						Main.NewText($"secondary syncing packet(s). requester is {requester}");
+						int playerToBeSynced = reader.ReadInt32();
+						//Main.NewText($"secondary syncing packet(s). requester is {playerToBeSynced}");
 
-						List<Image> syncBuf2 = new List<Image>();
-						int read2 = reader.ReadInt32();
-						string docPath2 = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-						StreamWriter outputFile = new StreamWriter(Path.Combine(docPath2, "aaaa.txt"), true);
-						outputFile.WriteLine("BEGINNING SECONDARY:");
-						bool didNotMatch = true;
-						string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-						while (didNotMatch) {
+						int length = reader.ReadInt32();
+						List<Image> buffer = new List<Image>();
+						for (int i = 0; i < length; i++) {
 							Vector2 pos = reader.ReadVector2();
 							float scale = reader.ReadSingle();
 							int image = reader.ReadInt32();
-							syncBuf2.Add(new Image(pos, scale, image));
-							
-							int read = reader.ReadInt32();
-							outputFile.WriteLine($"a read session occured. the var read is {read}");
-							if (read == -251658241) {
-								didNotMatch = false;
-								outputFile.WriteLine($"YOOOOO MATCHED");
-							}
-							for (int a = 0; a < BitConverter.GetBytes(read).Count(); a++) {
-								outputFile.WriteLine(BitConverter.GetBytes(read)[a]);
-							}
-							reader.BaseStream.Seek(-4, SeekOrigin.Current);
-
-							outputFile.WriteLine("");
+							buffer.Add(new Image(pos, scale, image));
 						}
 
-						if (Main.myPlayer == requester) {
-							for (int i = 0; i < syncBuf2.Count; i++) {
-								Main.player[Main.myPlayer].GetModPlayer<MDPlayer>().images.Add(syncBuf2[i]);
+						if (Main.myPlayer == playerToBeSynced) {
+							for (int i = 0; i < buffer.Count; i++) {
+								Main.player[Main.myPlayer].GetModPlayer<MDPlayer>().images.Add(buffer[i]);
 							}
-						}
 						}
 
 						break;
+						}
 
 					default:
 						Console.WriteLine("BRUUUUUUUUUH");
