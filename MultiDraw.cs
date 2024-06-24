@@ -77,7 +77,7 @@ namespace MultiDraw
 						Console.WriteLine($"MultiDraw: recieved request to sync. requester is {requester}");
 
 						int totalBytesPayload = 16 * ModContent.GetInstance<MDModSystem>().images.Count;
-						int numPackets = (int) Math.Ceiling((float) totalBytesPayload / 65535f);
+						int numPackets = (int) Math.Ceiling((float) totalBytesPayload / 65535f) + 1; //just in case there's enough space for the payloads but not enough for the headers (rare chance)
 						Console.WriteLine($"MultiDraw: totalBytesPayload {totalBytesPayload}, numPackets {numPackets}. the amount of images is {ModContent.GetInstance<MDModSystem>().images.Count}");
 						List<List<byte>> packets = new List<List<byte>>();
 						int offset = 0;

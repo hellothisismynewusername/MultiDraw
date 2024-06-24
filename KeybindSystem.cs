@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace MultiDraw {
-    public class MDSystem : ModSystem {
+    public class KeybindSystem : ModSystem {
 
         public static ModKeybind ReDisplay { get; private set; }
         public static ModKeybind IncreaseBrushSize { get; private set; }

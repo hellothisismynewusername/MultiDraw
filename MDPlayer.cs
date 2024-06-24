@@ -46,6 +46,8 @@ namespace MultiDraw
                     pack.Write((byte) 2);
                     pack.Write((Int32) Player.whoAmI);
                     pack.Send();
+                } else {
+                    images = ModContent.GetInstance<MDModSystem>().images;
                 }
             }
         }
@@ -230,15 +232,15 @@ namespace MultiDraw
 
         public override void ProcessTriggers(TriggersSet triggersSet) {
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
-                if (MDSystem.ReDisplay.JustPressed) {
+                if (KeybindSystem.ReDisplay.JustPressed) {
                     re(true, true);
                 }
-                if (MDSystem.IncreaseBrushSize.JustPressed) {
+                if (KeybindSystem.IncreaseBrushSize.JustPressed) {
                     if (scale < 10f) {
                         scale += 0.4f;
                     }
                 }
-                if (MDSystem.DecreaseBrushSize.JustPressed) {
+                if (KeybindSystem.DecreaseBrushSize.JustPressed) {
                     if (scale > 0.8f) {
                         scale -= 0.4f;
                     }

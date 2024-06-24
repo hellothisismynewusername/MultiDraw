@@ -49,51 +49,58 @@ namespace MultiDraw.Content.Projectiles
                 Projectile.timeLeft = 100000;
 
                 for (int i = 0; i < Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images.Count; i++) {
-                    Texture2D texture;
-                    Rectangle rect;
-                    switch (Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].image) {
-                        case 0:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/black");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -1:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/white");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -2:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/red");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -3:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/green");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -4:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/blue");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -5:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/yellow");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -6:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/orange");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -7:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/purple");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        case -8:
-                            texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/pink");
-                            rect = new Rectangle(0, 0, 8, 8);
-                            break;
-                        default:
-                            Main.GetItemDrawFrame(Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].image, out texture, out rect);
-                            break;
-                    }
 
-                    Main.EntitySpriteDraw(texture, Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].pos - Main.screenPosition, rect, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].scale, SpriteEffects.None);
+                    if (Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].pos.X >= Main.player[Projectile.owner].position.X - 1120 &&
+                        Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].pos.X <= Main.player[Projectile.owner].position.X + 1120 &&
+                        Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].pos.Y >= Main.player[Projectile.owner].position.Y - 576 &&
+                        Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].pos.Y <= Main.player[Projectile.owner].position.Y + 576) {
+
+                        Texture2D texture;
+                        Rectangle rect;
+                        switch (Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].image) {
+                            case 0:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/black");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -1:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/white");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -2:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/red");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -3:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/green");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -4:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/blue");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -5:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/yellow");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -6:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/orange");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -7:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/purple");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            case -8:
+                                texture = (Texture2D) Mod.Assets.Request<Texture2D>("Assets/pink");
+                                rect = new Rectangle(0, 0, 8, 8);
+                                break;
+                            default:
+                                Main.GetItemDrawFrame(Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].image, out texture, out rect);
+                                break;
+                        }
+
+                        Main.EntitySpriteDraw(texture, Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].pos - Main.screenPosition, rect, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), Main.player[Projectile.owner].GetModPlayer<MDPlayer>().images[i].scale, SpriteEffects.None);
+                    }
                 }
 
                 

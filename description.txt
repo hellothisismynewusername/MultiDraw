@@ -1,4 +1,4 @@
-This mod lets you and others draw together in multiplayer, so you can annotate stuff, plan buildings, leave messages behind without needing a sign, clutter up the screen, or draw whatever else a typical gamer would together. You can write anywhere on the screen, and the drawings are saved as long as the server's open. However, they don't save in the world file, but I have considered this for a future update if I learn how to.
+This mod lets you and others draw together in multiplayer, so you can annotate stuff, plan buildings, leave messages behind without needing a sign, clutter up the screen, or draw whatever else a typical gamer would together. You can write anywhere on the world. They're saved in the world file when you exit and save.
 You can:
  - Draw in 9 different colors
  - Change brush size
@@ -13,3 +13,8 @@ To change color or set your brush to a Terraria item sprite, type in the chat "/
 
 Please set your keybinds for Increase brush size, Decrease brush size, and Re-sync and Re-display.
 You can configure the smoothness in server settings.
+
+Update 1.1.0:
+ - Now saves drawings to the world!
+ - Fixed a very rare bug related to the number of packets needed for sending the drawings from server to client.
+ - Off-screen drawings don't render. This doesn't account for zoom.

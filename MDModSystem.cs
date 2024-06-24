@@ -14,51 +14,61 @@ namespace MultiDraw {
 
         public List<Image> images;
 
-        public override void OnWorldLoad() {
+        public override void ClearWorld() {
             images = new List<Image>();
-            base.OnWorldLoad();
-        }
-
-        /*public override void LoadWorldData(TagCompound tag) {
-            int len;
-            if (tag.ContainsKey("count")) {
-                len = (int) tag.Get<int>("count");
-                Console.WriteLine($"MultiDraw count is {len}");
-
-                for (int i = 0; i < len; i++) {
-                    float posx = tag.Get<float>("posx" + i.ToString());
-                    float posy = tag.Get<float>("posy" + i.ToString());
-                    Vector2 pos = new Vector2(posx, posy);
-                    float scale = tag.Get<float>("scale" + i.ToString());
-                    int image = tag.Get<int>("image" + i.ToString());
-                    images.Add(new Image(pos, scale, image));
-                }
-            } else {
-                Console.WriteLine("World does not contain MultiDraw data");
-            }
-            base.LoadWorldData(tag);
         }
 
         public override void SaveWorldData(TagCompound tag) {
+            List<Vector2> positions = new List<Vector2>();
+            List<float> scales = new List<float>();
+            List<int> imageIdens = new List<int>();
             if (Main.netMode == NetmodeID.SinglePlayer) {
-                tag.Add("count", images.Count);
-                for (int i = 0; i < images.Count; i++) {
-                    tag.Add("posx" + i.ToString(), images[i].pos.X);
-                    tag.Add("posy" + i.ToString(), images[i].pos.Y);
-                    tag.Add("scale" + i.ToString(), images[i].scale);
-                    tag.Add("image" + i.ToString(), images[i].image);
+                for (int i = 0; i < Main.player[0].GetModPlayer<MDPlayer>().images.Count; i++) {    //the player in singeplayer is always 0, right?
+                    positions.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].pos);
+                    scales.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].scale);
+                    imageIdens.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].image);
                 }
             } else {
-                tag.Add("count", images.Count);
-                for (int i = 0; i < images.Count; i++) {
-                    tag.Add("posx" + i.ToString(), images[i].pos.X);
-                    tag.Add("posy" + i.ToString(), images[i].pos.Y);
-                    tag.Add("scale" + i.ToString(), images[i].scale);
-                    tag.Add("image" + i.ToString(), images[i].image);
+                for (int i = 0; i < images.Count; i++) {    //the player in singeplayer is always 0, right?
+                    positions.Add(images[i].pos);
+                    scales.Add(images[i].scale);
+                    imageIdens.Add(images[i].image);
                 }
             }
-            base.SaveWorldData(tag);
-        }*/
+            tag.Add("positions", positions);
+            tag.Add("scales", scales);
+            tag.Add("imageIdens", imageIdens);
+        }
+
+        public override void LoadWorldData(TagCompound tag) {
+            List<Vector2> positions = new List<Vector2>();
+            if (tag.ContainsKey("positions")) {
+                positions = (List<Vector2>) tag.GetList<Vector2>("positions");
+            } else {
+                Console.WriteLine("MultiDraw: save does not contain key for positions");
+            }
+            List<float> scales = new List<float>();
+            if (tag.ContainsKey("scales")) {
+                scales = (List<float>) tag.GetList<float>("scales");
+            } else {
+                Console.WriteLine("MultiDraw: save does not contain key for scales");
+            }
+            List<int> imageIdens = new List<int>();
+            if (tag.ContainsKey("imageIdens")) {
+                imageIdens = (List<int>) tag.GetList<int>("imageIdens");
+            } else {
+                Console.WriteLine("MultiDraw: save does not contain key for imageIdens");
+            }
+
+            if (positions.Count != scales.Count || scales.Count != imageIdens.Count || positions.Count != imageIdens.Count) {
+                Console.WriteLine("MultiDraw: Error in loading, list lengths do not align");
+                Console.WriteLine($"MultiDraw: positions length {positions.Count}\nscales length {scales.Count}\nimageIdens length {imageIdens.Count}");
+            }
+
+            for (int i = 0; i < positions.Count; i++) {
+                images.Add(new Image(positions[i], scales[i], imageIdens[i]));
+            }
+        }
 
     }
 }
