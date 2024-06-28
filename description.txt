@@ -6,13 +6,19 @@ You can:
  - Erase (your own or other's)
  - Craft the Pen item to draw, using 1 Dirt Block
 
-You may notice that in multiplayer, if you draw or erase for too long without releasing the mouse button, your drawing or erasing may be interupted. This is intentional.
-If the drawings disappear, you can press the Re-sync and Re-display buttons to re-sync drawings (if in multiplayer) and re-display them.
+You may notice that in multiplayer, if you draw or erase for too long without releasing the mouse button, your drawing or erasing may be interrupted. This is intentional.
 
 To change color or set your brush to a Terraria item sprite, type in the chat "/setcolor [color]" where [color] is either 'black', 'white', 'red', 'green', 'blue', or a valid item ID.
 
-Please set your keybinds for Increase brush size, Decrease brush size, and Re-sync and Re-display.
+Please set your keybinds for Increase brush size, Decrease brush size, and Re-sync.
 You can configure the smoothness in server settings.
+
+Update 1.1.2:
+ - Fixed the previous update's first fix.
+
+Update 1.1.1:
+ - Fixed a bug that would cause slight desyncs between the server and clients.
+ - Fixed drawings disappearing, pressing Re-display after dying or teleporting is no longer needed.
 
 Update 1.1.0:
  - Now saves drawings to the world!

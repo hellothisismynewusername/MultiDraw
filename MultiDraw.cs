@@ -78,9 +78,10 @@ namespace MultiDraw
 
 						int totalBytesPayload = 16 * ModContent.GetInstance<MDModSystem>().images.Count;
 						int numPackets = (int) Math.Ceiling((float) totalBytesPayload / 65535f) + 1; //just in case there's enough space for the payloads but not enough for the headers (rare chance)
-						Console.WriteLine($"MultiDraw: totalBytesPayload {totalBytesPayload}, numPackets {numPackets}. the amount of images is {ModContent.GetInstance<MDModSystem>().images.Count}");
+						Console.WriteLine($"MultiDraw: totalBytesPayload {totalBytesPayload} numPackets {numPackets} image count {ModContent.GetInstance<MDModSystem>().images.Count}");
 						List<List<byte>> packets = new List<List<byte>>();
 						int offset = 0;
+						int lenPayloadPerPacket = ModContent.GetInstance<MDModSystem>().images.Count / numPackets;
 						for (int i = 0; i < numPackets; i++) {
 							packets.Add(new List<byte>());
 
@@ -93,13 +94,20 @@ namespace MultiDraw
 							for (int a = 0; a < BitConverter.GetBytes(requester).Count(); a++) {
 								packets[i].Add(BitConverter.GetBytes(requester)[a]);
 							}
-							int lenPayloadPerPacket = ModContent.GetInstance<MDModSystem>().images.Count / numPackets;
-							Console.WriteLine($"MultiDraw: the lenPayloadPerPacket is {lenPayloadPerPacket}");
-							for (int a = 0; a < BitConverter.GetBytes(lenPayloadPerPacket).Count(); a++) {
-								packets[i].Add(BitConverter.GetBytes(lenPayloadPerPacket)[a]);
+							
+							//Console.WriteLine($"MultiDraw: the lenPayloadPerPacket is {lenPayloadPerPacket}");
+							if (i == numPackets - 1) {
+								Console.WriteLine($"MultiDraw: last packet, extra {ModContent.GetInstance<MDModSystem>().images.Count - (lenPayloadPerPacket * numPackets)}");
+								for (int a = 0; a < BitConverter.GetBytes(lenPayloadPerPacket + (ModContent.GetInstance<MDModSystem>().images.Count - (lenPayloadPerPacket * numPackets))).Count(); a++) {
+									packets[i].Add(BitConverter.GetBytes(lenPayloadPerPacket + (ModContent.GetInstance<MDModSystem>().images.Count - (lenPayloadPerPacket * numPackets)))[a]);
+								}
+							} else {
+								for (int a = 0; a < BitConverter.GetBytes(lenPayloadPerPacket).Count(); a++) {
+									packets[i].Add(BitConverter.GetBytes(lenPayloadPerPacket)[a]);
+								}
 							}
 
-							Console.WriteLine($"MultiDraw: from {offset} to {lenPayloadPerPacket * (i + 1)}");
+							//Console.WriteLine($"MultiDraw: from {offset} to {lenPayloadPerPacket * (i + 1)}");
 							//payload
 							for (int a = offset; a < lenPayloadPerPacket * (i + 1); a++) {
 								//if (lenPayloadPerPacket * (i + 1) < ModContent.GetInstance<MDModSystem>().images.Count) { //the dividing can cause some off-by-one errors
@@ -118,6 +126,24 @@ namespace MultiDraw
 								//}
 							}
 							offset = lenPayloadPerPacket * (i + 1);
+						}
+						//missed a little bit but there should always be a bit of extra space in every packet, so it'll add the missing little amount in the last packet.
+						if (lenPayloadPerPacket * numPackets < totalBytesPayload) {
+							Console.WriteLine($"MultiDraw: leftover ({ModContent.GetInstance<MDModSystem>().images.Count - lenPayloadPerPacket * numPackets}). len {ModContent.GetInstance<MDModSystem>().images.Count} done {lenPayloadPerPacket * numPackets}");
+							for (int a = lenPayloadPerPacket * numPackets; a < ModContent.GetInstance<MDModSystem>().images.Count; a++) {
+								for (int b = 0; b < 4; b++) {
+									packets[packets.Count - 1].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].pos.X)[b]);
+								}
+								for (int b = 0; b < 4; b++) {
+									packets[packets.Count - 1].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].pos.Y)[b]);
+								}
+								for (int b = 0; b < 4; b++) {
+									packets[packets.Count - 1].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].scale)[b]);
+								}
+								for (int b = 0; b < 4; b++) {
+									packets[packets.Count - 1].Add(BitConverter.GetBytes(ModContent.GetInstance<MDModSystem>().images[a].image)[b]);
+								}
+							}
 						}
 						//Console.WriteLine("saving time");
 						//saving packets to a file to view them and making the real packets and sending them
@@ -144,8 +170,7 @@ namespace MultiDraw
 						break;
 
 					default:
-						Main.NewText("AHHHHHHHHHHHHHHHH");
-						Console.WriteLine("OHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+						Console.WriteLine("MultiDraw: Error occured");
 						break;
 				}
 			}
@@ -238,7 +263,8 @@ namespace MultiDraw
 						}
 
 					default:
-						Console.WriteLine("BRUUUUUUUUUH");
+						Main.NewText("MultiDraw: Error occured");
+						Console.WriteLine("MultiDraw: Error occured");
 						break;
 				}
 			}

@@ -16,6 +16,7 @@ using Steamworks;
 using MultiDraw.Content.Items;
 using Terraria.GameInput;
 using Terraria.ModLoader.IO;
+using System.Threading;
 
 namespace MultiDraw
 {
@@ -52,15 +53,14 @@ namespace MultiDraw
             }
         }
 
-        public override void OnRespawn() {
-            re(false, true); //doesn't work?? still gotta press redisp when you die far away
+        public override void PreUpdate() {
+            re(false, true);
         }
 
         public override void PostUpdate() {
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
 
                 smoothing = ModContent.GetInstance<ConfigServerSide>().Smoothing;
-
 
                 if (Player.HeldItem.type == ModContent.ItemType<Pen>() && Main.mouseLeft) {
                     //images.Add(new Image(new Vector2((prevMouse.X + Main.MouseWorld.X) / 2f, (prevMouse.Y + Main.MouseWorld.Y) / 2f), scale, -2));
