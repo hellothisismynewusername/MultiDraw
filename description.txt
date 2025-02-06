@@ -2,16 +2,31 @@ This mod lets you and others draw together in multiplayer, so you can annotate s
 You can:
  - Draw in 9 different colors
  - Change brush size
- - Draw using any Terraria item sprite (like using stamps)
- - Erase (your own or other's)
- - Craft the Pen item to draw, using 1 Dirt Block
+ - Draw using any Terraria item sprite as your brush
+ - Erase (your own and other's)
+
+Keybinds to set:
+ - Increase Brush Size
+ - Decrease Brush Size
+ - Resync
+ - Erase nearby drawings (Singleplayer only)
+
+Commands:
+ - "/pen" to receive the pen item
+ - "/setcolor [color]" where [color] is 'black', 'white', 'red', 'green', 'blue', or a valid item ID. Or you can type the item ID in the client side config for Brush Image.
+ - "/hideUI" to hide the GUI
 
 You may notice that in multiplayer, if you draw or erase for too long without releasing the mouse button, your drawing or erasing may be interrupted. This is intentional.
 
-To change color or set your brush to a Terraria item sprite, type in the chat "/setcolor [color]" where [color] is either 'black', 'white', 'red', 'green', 'blue', or a valid item ID.
+You can configure the smoothness in server settings. If there is performance issues, turning down the smoothness can help.
 
-Please set your keybinds for Increase brush size, Decrease brush size, and Re-sync.
-You can configure the smoothness in server settings.
+Update 1.1.4:
+ - Added keybind to erase drawings on screen (At a standard 100% zoom, singleplayer only).
+ - Added a camera mode command to hide the UI.
+ - Replaced the pen crafting recipe with /pen command to receive the pen.
+
+Update 1.1.3:
+ - Fixed problem in saving worlds.
 
 Update 1.1.2:
  - Fixed the previous update's first fix.

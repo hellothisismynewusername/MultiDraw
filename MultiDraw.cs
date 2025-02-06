@@ -11,7 +11,6 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using MultiDraw.Content.Projectiles;
-using Humanizer;
 using Terraria.GameContent;
 
 namespace MultiDraw

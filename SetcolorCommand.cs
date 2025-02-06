@@ -8,6 +8,7 @@ namespace MultiDraw
 	public class SetcolorCommand : ModCommand
 	{
 		// CommandType.Chat means that command can be used in Chat in SP and MP
+
 		public override CommandType Type
 			=> CommandType.Chat;
 

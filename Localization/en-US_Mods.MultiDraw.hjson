@@ -15,6 +15,7 @@ Keybinds: {
 	"Increase brush size.DisplayName": Increase brush size
 	"Decrease brush size.DisplayName": Decrease brush size
 	Re-sync.DisplayName: Re-sync
+	"Erase nearby drawings.DisplayName": Erase drawings on screen
 }
 
 Configs: {

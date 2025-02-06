@@ -37,12 +37,5 @@ namespace MultiDraw.Content.Items
 			}
             base.UpdateInventory(player);
         }
-
-        public override void AddRecipes()
-		{
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			recipe.Register();
-		}
 	}
 }

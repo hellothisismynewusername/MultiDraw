@@ -19,25 +19,29 @@ namespace MultiDraw {
         }
 
         public override void SaveWorldData(TagCompound tag) {
-            List<Vector2> positions = new List<Vector2>();
-            List<float> scales = new List<float>();
-            List<int> imageIdens = new List<int>();
-            if (Main.netMode == NetmodeID.SinglePlayer) {
-                for (int i = 0; i < Main.player[0].GetModPlayer<MDPlayer>().images.Count; i++) {    //the player in singeplayer is always 0, right?
-                    positions.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].pos);
-                    scales.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].scale);
-                    imageIdens.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].image);
-                }
+            if (images.Count == 0) {
+                return;
             } else {
-                for (int i = 0; i < images.Count; i++) {    //the player in singeplayer is always 0, right?
-                    positions.Add(images[i].pos);
-                    scales.Add(images[i].scale);
-                    imageIdens.Add(images[i].image);
+                List<Vector2> positions = new List<Vector2>();
+                List<float> scales = new List<float>();
+                List<int> imageIdens = new List<int>();
+                if (Main.netMode == NetmodeID.SinglePlayer) {
+                    for (int i = 0; i < Main.player[0].GetModPlayer<MDPlayer>().images.Count; i++) {    //the player in singeplayer is always 0, right?
+                        positions.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].pos);
+                        scales.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].scale);
+                        imageIdens.Add(Main.player[0].GetModPlayer<MDPlayer>().images[i].image);
+                    }
+                } else {
+                    for (int i = 0; i < images.Count; i++) {    //the player in singeplayer is always 0, right?
+                        positions.Add(images[i].pos);
+                        scales.Add(images[i].scale);
+                        imageIdens.Add(images[i].image);
+                    }
                 }
+                tag.Add("positions", positions);
+                tag.Add("scales", scales);
+                tag.Add("imageIdens", imageIdens);
             }
-            tag.Add("positions", positions);
-            tag.Add("scales", scales);
-            tag.Add("imageIdens", imageIdens);
         }
 
         public override void LoadWorldData(TagCompound tag) {
@@ -63,6 +67,7 @@ namespace MultiDraw {
             if (positions.Count != scales.Count || scales.Count != imageIdens.Count || positions.Count != imageIdens.Count) {
                 Console.WriteLine("MultiDraw: Error in loading, list lengths do not align");
                 Console.WriteLine($"MultiDraw: positions length {positions.Count}\nscales length {scales.Count}\nimageIdens length {imageIdens.Count}");
+                return;
             }
 
             for (int i = 0; i < positions.Count; i++) {

@@ -172,7 +172,7 @@ namespace MultiDraw
                         //overflow protection
                         if (pack.BaseStream.Length > 65500) {
                             if (ModContent.GetInstance<ConfigClientSide>().PacketSizeWarningMessage) {
-                                Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier, or decrease smoothing in server-side config.");
+                                Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier.");
                             }
                             ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
                             earlyPack.Write((byte) 1);
@@ -243,6 +243,19 @@ namespace MultiDraw
                 if (KeybindSystem.DecreaseBrushSize.JustPressed) {
                     if (scale > 0.8f) {
                         scale -= 0.4f;
+                    }
+                }
+                if (KeybindSystem.EraseNearby.JustPressed && Main.netMode == NetmodeID.SinglePlayer) {
+                    for (int i = images.Count - 1; i >= 0; i--) {
+
+                        if (images[i].pos.X >= Player.position.X - 950 &&
+                            Player.GetModPlayer<MDPlayer>().images[i].pos.X <= Player.position.X + 950 &&
+                            Player.GetModPlayer<MDPlayer>().images[i].pos.Y >= Player.position.Y - 530 &&
+                            Player.GetModPlayer<MDPlayer>().images[i].pos.Y <= Player.position.Y + 530) {
+
+                            images.RemoveAt(i);
+                        }
+
                     }
                 }
             }
