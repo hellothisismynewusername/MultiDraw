@@ -24,7 +24,8 @@ namespace MultiDraw
 
         public List<Image> images;
         public List<Image> buf;
-        public List<int> eraseBuf;
+        //public List<int> eraseBuf;
+        public List<Vector2> erasePositionsBuf;
         bool oldMouseState;
         bool rightOldMouseState;
         float scale;
@@ -36,7 +37,8 @@ namespace MultiDraw
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
                 images = new List<Image>();
                 buf = new List<Image>();
-                eraseBuf = new List<int>();
+                //eraseBuf = new List<int>();
+                erasePositionsBuf = new();
                 scale = 1f;
                 prevMouse = Main.MouseWorld;
                 smoothing = ModContent.GetInstance<ConfigServerSide>().Smoothing;
@@ -93,11 +95,12 @@ namespace MultiDraw
                             images[i].pos.Y >= Main.MouseWorld.Y - scale * 5f && images[i].pos.Y <= Main.MouseWorld.Y + scale * 5f) {
                             images.RemoveAt(i);
                             if (Main.netMode != NetmodeID.SinglePlayer) {
-                                eraseBuf.Add(i);
+                                //eraseBuf.Add(i);
+                                erasePositionsBuf.Add(Main.MouseWorld);
                             }
                         }
 
-                        if (Main.netMode != NetmodeID.SinglePlayer && eraseBuf.Count * 4 > 65480) {
+                        if (Main.netMode != NetmodeID.SinglePlayer && erasePositionsBuf.Count * 4 > 65480) {
                             break;
                         }
                     }
@@ -162,34 +165,41 @@ namespace MultiDraw
                     !Main.mouseRight && rightOldMouseState) { //Just Released ERASER
 
                     ModPacket pack = ModContent.GetInstance<MultiDraw>().GetPacket();
-                    pack.Write((byte) 1);                       //byte
-                    pack.Write((Int32) Player.whoAmI);          //int (owner)
-                    pack.Write((Int32) eraseBuf.Count);         //int (len)
+                    pack.Write((byte)1);                       //byte
+                    pack.Write((Int32)Player.whoAmI);          //int (owner)
+                    pack.Write((float)scale);
+                    pack.Write((Int32)erasePositionsBuf.Count);         //int (len)
                     bool earlyEnd = false;
-                    for (int i = 0; i < eraseBuf.Count; i++) {
-                        pack.Write((Int32) eraseBuf[i]);
+                    for (int i = 0; i < erasePositionsBuf.Count; i++)
+                    {
+                        pack.WriteVector2(erasePositionsBuf[i]);
 
                         //overflow protection
-                        if (pack.BaseStream.Length > 65500) {
-                            if (ModContent.GetInstance<ConfigClientSide>().PacketSizeWarningMessage) {
+                        if (pack.BaseStream.Length > 65500)
+                        {
+                            if (ModContent.GetInstance<ConfigClientSide>().PacketSizeWarningMessage)
+                            {
                                 Main.NewText("Cutting off early due to approaching maximum size limit. Please release the mouse button earlier.");
                             }
                             ModPacket earlyPack = ModContent.GetInstance<MultiDraw>().GetPacket();
-                            earlyPack.Write((byte) 1);
-                            earlyPack.Write((Int32) Player.whoAmI);
-                            earlyPack.Write((Int32) i);
-                            for (int j = 0; j < i; j++) {
-                                earlyPack.Write((Int32) eraseBuf[j]);
+                            earlyPack.Write((byte)1);
+                            earlyPack.Write((Int32)Player.whoAmI);
+                            earlyPack.Write((float)scale);
+                            earlyPack.Write((Int32)i);
+                            for (int j = 0; j < i; j++)
+                            {
+                                earlyPack.WriteVector2(erasePositionsBuf[j]);
                             }
                             earlyPack.Send();
-                            eraseBuf.Clear();
+                            erasePositionsBuf.Clear();
                             earlyEnd = true;
 
-                            if (Main.netMode != NetmodeID.SinglePlayer) {
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
                                 //request to sync images
                                 ModPacket p = ModContent.GetInstance<MultiDraw>().GetPacket();
-                                p.Write((byte) 2);
-                                p.Write((Int32) Player.whoAmI);
+                                p.Write((byte)2);
+                                p.Write((Int32)Player.whoAmI);
                                 p.Send();
                             }
 
@@ -198,10 +208,20 @@ namespace MultiDraw
                     }
                     if (!earlyEnd) pack.Send();
 
-                    eraseBuf.Clear();
+                    erasePositionsBuf.Clear();
+
+                    if (Main.netMode != NetmodeID.SinglePlayer) {
+                        //request to sync erverybody
+                        ModPacket p = ModContent.GetInstance<MultiDraw>().GetPacket();
+                        p.Write((byte) 3);
+                        p.Write((Int32) Player.whoAmI);
+                        p.Send();
+                    }
+
                 }
 
                 //Main.NewText($"{images.Count}  |  {buf.Count}");
+
 
                 oldMouseState = Main.mouseLeft;
                 rightOldMouseState = Main.mouseRight;
@@ -235,12 +255,12 @@ namespace MultiDraw
                 if (KeybindSystem.ReDisplay.JustPressed) {
                     re(true, true);
                 }
-                if (KeybindSystem.IncreaseBrushSize.JustPressed) {
+                if (KeybindSystem.IncreaseBrushSize.JustPressed && !Main.mouseRight) {
                     if (scale < 10f) {
                         scale += 0.4f;
                     }
                 }
-                if (KeybindSystem.DecreaseBrushSize.JustPressed) {
+                if (KeybindSystem.DecreaseBrushSize.JustPressed && !Main.mouseRight) {
                     if (scale > 0.8f) {
                         scale -= 0.4f;
                     }

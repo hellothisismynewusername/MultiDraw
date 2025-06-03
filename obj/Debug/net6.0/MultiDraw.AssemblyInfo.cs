@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MultiDraw")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa3c8ae20aff40153d8cebfd5ef874ec05d87778")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+506e1102975ac29403b9d8185bfc420504dbc324")]
 [assembly: System.Reflection.AssemblyProductAttribute("MultiDraw")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MultiDraw")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
