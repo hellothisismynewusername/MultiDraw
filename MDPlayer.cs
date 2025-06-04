@@ -30,16 +30,18 @@ namespace MultiDraw
         float scale;
         Vector2 prevMouse;
         int smoothing;
+        bool visible;
 
         public override void OnEnterWorld() {
             if (Player.whoAmI == Main.myPlayer && Main.netMode != NetmodeID.Server) {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 0, 0f);
                 images = new List<Image>();
                 buf = new List<Image>();
                 eraseBuf = new List<int>();
                 scale = 1f;
                 prevMouse = Main.MouseWorld;
                 smoothing = ModContent.GetInstance<ConfigServerSide>().Smoothing;
+                visible = true;
 
                 if (Main.netMode != NetmodeID.SinglePlayer) {
                     //request to sync images
@@ -225,7 +227,9 @@ namespace MultiDraw
                             Main.projectile[i].Kill();
                         }
                     }
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 1, 1f);
+                    if (visible) {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, new Vector2(0f, 0f), ModContent.ProjectileType<Canvas>(), 0, 0f);
+                    }
                 }
             }
         }
@@ -257,6 +261,9 @@ namespace MultiDraw
                         }
 
                     }
+                }
+                if (KeybindSystem.ToggleVisibility.JustPressed) {
+                    visible = !visible;
                 }
             }
         }
