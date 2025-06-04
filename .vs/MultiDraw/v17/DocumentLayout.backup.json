@@ -3,24 +3,29 @@
   "WorkspaceRootPath": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\content\\projectiles\\canvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:content\\projectiles\\canvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\mdplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:mdplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\localization\\en-us_mods.multidraw.hjson||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:localization\\en-us_mods.multidraw.hjson||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\keybindsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:keybindsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+<<<<<<< HEAD
       "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\localization\\en-us_mods.multidraw.hjson||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:localization\\en-us_mods.multidraw.hjson||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\multidraw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:multidraw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+      "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\keybindsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:keybindsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\mdplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:mdplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
     },
     {
       "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\cameramodecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,6 +56,13 @@
       "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:content\\items\\pen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+<<<<<<< HEAD
+=======
+      "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\content\\projectiles\\canvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:content\\projectiles\\canvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
       "AbsoluteMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|c:\\users\\emahs\\documents\\my games\\terraria\\tmodloader\\modsources\\multidraw\\mdmodsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FDF34941-DA24-4A74-A616-8B3141A1C47E}|MultiDraw.csproj|solutionrelative:mdmodsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -62,11 +74,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 11,
+=======
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
               "Title": "Pen.cs",
               "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\Content\\Items\\Pen.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Pen.cs",
@@ -75,7 +95,47 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-22T00:43:42.837Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CameraModeCommand.cs",
+              "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\CameraModeCommand.cs",
+              "RelativeDocumentMoniker": "CameraModeCommand.cs",
+              "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\CameraModeCommand.cs",
+              "RelativeToolTip": "CameraModeCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T03:58:10.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Empty.cs",
+              "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\Empty.cs",
+              "RelativeDocumentMoniker": "Empty.cs",
+              "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\Empty.cs",
+              "RelativeToolTip": "Empty.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T03:57:02.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GetPenCommand.cs",
+              "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\GetPenCommand.cs",
+              "RelativeDocumentMoniker": "GetPenCommand.cs",
+              "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\GetPenCommand.cs",
+              "RelativeToolTip": "GetPenCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T03:04:06.753Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -111,7 +171,8 @@
               "RelativeToolTip": "SetcolorCommand.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAowD4AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-23T17:27:32.26Z"
+              "WhenOpened": "2024-06-23T17:27:32.26Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -121,26 +182,39 @@
               "RelativeDocumentMoniker": "KeybindSystem.cs",
               "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\KeybindSystem.cs",
               "RelativeToolTip": "KeybindSystem.cs",
+<<<<<<< HEAD
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAlAAAAAAAAAA==",
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T17:12:40.183Z"
+              "WhenOpened": "2024-06-24T17:12:40.183Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "MDPlayer.cs",
               "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\MDPlayer.cs",
               "RelativeDocumentMoniker": "MDPlayer.cs",
               "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\MDPlayer.cs",
               "RelativeToolTip": "MDPlayer.cs",
+<<<<<<< HEAD
               "ViewState": "AgIAAOQAAAAAAAAAAADgv9wAAAARAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAANcAAAAAAAAAAAAswOgAAABHAAAAAAAAAA==",
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T20:54:20.386Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 3,
+=======
+              "DocumentIndex": 0,
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
               "Title": "en-US_Mods.MultiDraw.hjson",
               "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\Localization\\en-US_Mods.MultiDraw.hjson",
               "RelativeDocumentMoniker": "Localization\\en-US_Mods.MultiDraw.hjson",
@@ -148,11 +222,16 @@
               "RelativeToolTip": "Localization\\en-US_Mods.MultiDraw.hjson",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-23T19:36:52.174Z"
+              "WhenOpened": "2024-06-23T19:36:52.174Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 9,
+=======
+              "DocumentIndex": 8,
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
               "Title": "ConfigClientSide.cs",
               "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\ConfigClientSide.cs",
               "RelativeDocumentMoniker": "ConfigClientSide.cs",
@@ -160,28 +239,69 @@
               "RelativeToolTip": "ConfigClientSide.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< HEAD
               "WhenOpened": "2024-06-22T16:48:17.945Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+=======
+              "WhenOpened": "2024-06-22T16:48:17.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
               "Title": "MultiDraw.cs",
               "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\MultiDraw.cs",
               "RelativeDocumentMoniker": "MultiDraw.cs",
               "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\MultiDraw.cs",
               "RelativeToolTip": "MultiDraw.cs",
               "ViewState": "AgIAAKwAAAAAAAAAAAAgwMsAAAAxAAAAAAAAAA==",
+<<<<<<< HEAD
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T18:57:55.857Z"
+=======
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T18:57:55.857Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 12,
+              "Title": "MDModSystem.cs",
+              "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\MDModSystem.cs",
+              "RelativeDocumentMoniker": "MDModSystem.cs",
+              "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\MDModSystem.cs",
+              "RelativeToolTip": "MDModSystem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-22T18:02:43.838Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ConfigServerSide.cs",
+              "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\ConfigServerSide.cs",
+              "RelativeDocumentMoniker": "ConfigServerSide.cs",
+              "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\ConfigServerSide.cs",
+              "RelativeToolTip": "ConfigServerSide.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-22T16:45:11.815Z",
+              "EditorCaption": ""
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Canvas.cs",
               "DocumentMoniker": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\Content\\Projectiles\\Canvas.cs",
               "RelativeDocumentMoniker": "Content\\Projectiles\\Canvas.cs",
               "ToolTip": "C:\\Users\\emahs\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MultiDraw\\Content\\Projectiles\\Canvas.cs",
               "RelativeToolTip": "Content\\Projectiles\\Canvas.cs",
+<<<<<<< HEAD
               "ViewState": "AgIAAEIAAAAAAAAAAAAowGUAAADnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T20:21:16.812Z",
@@ -222,6 +342,12 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-22T16:45:11.815Z"
+=======
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T20:21:16.812Z",
+              "EditorCaption": ""
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
             }
           ]
         }

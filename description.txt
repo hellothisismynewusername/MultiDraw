@@ -20,8 +20,13 @@ You may notice that in multiplayer, if you draw or erase for too long without re
 
 You can configure the smoothness in server settings. If there is performance issues, turning down the smoothness can help.
 
+<<<<<<< HEAD
 Update 1.1.6:
  - Added keybind to toggle drawings visibility.
+=======
+Update 1.1.7:
+ - Possibly fixed multiplayer bug of multiple players drawing at the same time.
+>>>>>>> 484c1ebdc83e3970914b997105042a3480dadfa5
 
 Update 1.1.4:
  - Added keybind to erase drawings on screen (At a standard 100% zoom, singleplayer only).
